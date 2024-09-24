@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDGC</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            display: flex; 
+            height: 70px;
+            width: 100%;
+            background-color: grey;
+            color: white;
+            align-items: center;
+        }
+        .header h1 {
+            margin-left: 20px;
+        }
+        .elements {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 50px auto;
+            gap: 20px;
+            width: 90%;
+        }
+        .obj {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 300px;
+            width: 200px;
+            background-color: darkgrey;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .obj img {
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .cart {
+            height: 30px;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            background-color: gray;
+            color: white;
+        }
+        .obj h2 {
+            margin: 10px;
+            font-size: 15px;
+            text-align: center;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .obj button{
+            background-color: transparent;
+            border-color: transparent;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            color: white;
+        }
+        .order{
+            width: 100%;
+            background-color: darkgray;
+        }
+        .add{
+            margin-top: 5px;
+            width: 500px;
+            border-radius: 0px 0px 50px 0px;
+            background-color: black;
+            color: white;
+            font-size: 17px;
+            display: flex;
+        }
+        .add h1{
+            margin-top: 2px;
+            margin-left: 30px;
+        }
+        .details{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        .index{
+            width: 50%;
+            display: flex;
+            gap: 30px;
+            flex-direction: column;
+            margin-top: 20px;
+            margin-left: 40px;
+        }
+        .added{
+            height: 150px;
+            width: 500px;
+            border-radius: 10px;
+            background-color: #dfd8f9;
+            display: flex;
+            /* justify-content: space-between; */
+            align-items: center;
+            gap: 19px;
+        }
+        .added img{
+            height: 125px;
+            width: 100px;
+            border-radius: 9px;
+            margin-left: 25px;
+        }
+        .added h2{
+            margin: 10px;
+            font-size: 15px;
+            text-align: center;
+            width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .added p{
+            margin-left: 9px;
+        }
+        .hello{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 30%;
+        }
+        .new{
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            gap: 10px;
+            width: 60px;
+        }
+        .new button{
+            background-color: transparent;
+            border-color: transparent;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .new p{
+            margin: 0;
+            margin-top: 5px;
+        }
+        .price{
+            height: 350px;
+            width: 40%;
+            margin: 20px;
+            background-color: #dfd8f9;
+            border-radius: 10px;
+        }
+        .price h2{
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+        .kru{
+            display: flex;
+        }
+        .names,.currency{
+            display: flex;
+            flex-direction: column;
+            margin: 40px;
+            gap: 30px;
+        }
+        .remove{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .remove button{
+            background-color: transparent;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            margin-left: 70px;
+            margin-bottom: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>E-COMMERCE PLATFORM</h1>
+    </div>
+    <div class="elements">
+        <% dat.forEach(element => { %>
+            
+        <div class="obj">
+            <img src="<%= element.image %>" alt="<%= element.title %>" />
+            <h2><%= element.title %></h2>
+            <p>⭐<%= element.rating.rate %></p>
+            <p>₹<%= element.price %></p>
+            <form action="/cart" method="get">
+            <div class="cart">
+                <input type="hidden" name="title" value="<%= element.title %>">
+                <input type="hidden" name="price" value="<%= element.price %>">
+                <input type="hidden" name="ima" value="<%= element.image %>">
+                <button>Add to Cart</button>
+            </div> 
+         </form>
+        </div>
+  
+        <% }); %>
+    </div>
+    <div class="order">
+        <div class="add">
+            <h1>CART</h1>
+        </div>
+        <div class="details">
+        <div class="index">
+        <% if(locals.products){ %>
+            <%products.forEach(element=>{%>
+                <div class="added">
+                <img src="<%=element.image %>" alt="<%= element.product%>"/>
+                <div class="hello">
+                <h2><%=element.product%></h2>
+                <p>₹<%=element.price%></p>
+                </div>
+                <div class="new">
+                    <form action="/add" method="get">
+                        <button>+</button>
+                        <input type="hidden" name="count" value=<%= element.count %>>
+                        <input type="hidden" name="title" value="<%= element.product %>">
+                    </form>
+                    <p><%= element.count %></p>
+                    <form action="/del" method="get">
+                        <input type="hidden" name="count" value=<%= element.count %>>
+                        <input type="hidden" name="title" value="<%= element.product %>">
+                        <button>-</button>
+                    </form>
+                </div>
+                <div class="remove">
+                <form action="remove" method="get">
+                    <input type="hidden" name="title" value="<%= element.product %>">
+                    <button>X</button>
+                </form>  
+                </div>              
+                </div>
+            <%})%>
+        <% } %>
+        </div>
+        <div class="price">
+                <h2>Price Details</h2>
+                <div class="kru">
+                    <div class="names">
+                        <p>Total MRP</p>
+                        <p>Coupon Discount</p>
+                        <p>Platfrom Fee</p>
+                        <p>Shipping Charges</p>
+                        <p>Total Amount</p>
+                    </div>
+                    <div class="currency">
+                        <p>₹<%= pricesDetails.mrp.toFixed(2) %></p>
+                        <p>₹<%= pricesDetails.dis.toFixed(2) %></p>
+                        <p>₹<%= pricesDetails.plat.toFixed(2) %></p>
+                        <p>₹<%= pricesDetails.shipping.toFixed(2) %></p>
+                        <p>₹<%= pricesDetails.total.toFixed(2) %></p>
+                    </div>
+                    
+                </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
